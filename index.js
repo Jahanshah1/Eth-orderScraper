@@ -14,8 +14,8 @@ app.get('/large-orders/:coin', async (req, res) => {
     const data = response.data;
   
     if ('result' in data) {
-      const largeBuyOrders = data.result.filter(order => parseFloat(order.value) > 1000000);
-      const largeSellOrders = data.result.filter(order => parseFloat(order.value) < -1000000);
+      const largeBuyOrders = data.result.filter(order => parseFloat(order.value) > 1000000).slice(0,100);
+      const largeSellOrders = data.result.filter(order => parseFloat(order.value) < -1000000).slice(0,100);
       const result = { coin, large_buy_orders: largeBuyOrders, large_sell_orders: largeSellOrders };
       res.setHeader('Content-Type', 'application/json');
       res.send(JSON.stringify(result, null, 2));
